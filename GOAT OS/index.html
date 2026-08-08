@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GOAT OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- AMBIENT AURORA LAYER (shared by login + desktop) -->
+<div id="aurora"><span></span><span></span><span></span></div>
+
+<!-- LOGIN SCREEN -->
+<div id="login">
+  <div class="loginBox">
+    <div class="brandmark">GOAT<em>OS</em></div>
+    <p class="tagline">Cloud desktop, warmed up and waiting.</p>
+    <input id="username" placeholder="Enter username" autocomplete="off">
+    <button id="enterBtn">Enter System &rarr;</button>
+    <p class="hint">Press Enter to log in</p>
+  </div>
+</div>
+
+<!-- OS -->
+<div id="os">
+
+  <!-- TOP BAR -->
+  <div id="topbar">
+    <div class="topbar-left">
+      <span class="logo-dot"></span>
+      <span class="logo-text">GOAT OS</span>
+    </div>
+
+    <div id="tabstrip" aria-label="Open windows"></div>
+
+    <div class="topbar-right">
+      <button id="notifBtn" class="iconbtn" title="Notifications">
+        <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 3a5 5 0 0 0-5 5v3.4c0 .6-.2 1.2-.6 1.7L4.8 15.5c-.7.9-.1 2.2 1 2.2h12.4c1.1 0 1.7-1.3 1-2.2l-1.6-2.4a2.8 2.8 0 0 1-.6-1.7V8a5 5 0 0 0-5-5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.5 19a2.5 2.5 0 0 0 5 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <button id="themeBtn" class="iconbtn" title="Toggle theme">
+        <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 3v2M12 19v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M3 12h2M19 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
+      <span id="time">--:--:--</span>
+    </div>
+  </div>
+
+  <!-- DESKTOP (right-click surface) -->
+  <div id="desktop"></div>
+
+  <!-- CONTEXT MENU -->
+  <ul id="contextMenu" class="hidden">
+    <li data-action="newnote">New note</li>
+    <li data-action="wallpaper">Cycle wallpaper</li>
+    <li data-action="theme">Toggle theme</li>
+    <li data-action="about">About GOAT OS</li>
+  </ul>
+
+  <!-- TOAST HOST -->
+  <div id="toastHost"></div>
+
+  <!-- DOCK -->
+  <div id="dock">
+    <button class="dockicon" data-app="notes" title="Notes">
+      <svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 9h8M8 13h8M8 17h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <button class="dockicon" data-app="browser" title="Browser">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 12h18M12 3c2.5 2.5 3.8 5.7 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.7-3.8-9S9.5 5.5 12 3Z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+    </button>
+    <button class="dockicon" data-app="terminal" title="Terminal">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 9l3 3-3 3M13 15h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button class="dockicon" data-app="calc" title="Calculator">
+      <svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 7h8M8 11h1M11.5 11h1M15 11h1M8 14.5h1M11.5 14.5h1M15 14.5h1M8 18h1M11.5 18h1M15 15v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <button class="dockicon" data-app="files" title="Files">
+      <svg viewBox="0 0 24 24"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4l2 2h9A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+    </button>
+    <button class="dockicon" data-app="calendar" title="Calendar">
+      <svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3.5 9.5h17M8 3v3.5M16 3v3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <button class="dockicon" data-app="music" title="Music">
+      <svg viewBox="0 0 24 24"><circle cx="7" cy="18" r="2.4" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="17" cy="16" r="2.4" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9.4 18V6.5L19.4 5V16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+    </button>
+    <button class="dockicon" data-app="weather" title="Weather">
+      <svg viewBox="0 0 24 24"><circle cx="9" cy="9" r="3.2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9 3.2v1.4M9 12.4v1.4M3.2 9h1.4M12.4 9h1.4M5.1 5.1l1 1M11.9 11.9l1 1M5.1 12.9l1-1M11.9 6.1l1-1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M9.5 15.5h8a3 3 0 0 0 .4-6 4.5 4.5 0 0 0-8.6-1.4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+    </button>
+    <button class="dockicon" data-app="timer" title="Stopwatch">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12 13V9M9.5 3h5M12 3v2.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <button class="dockicon" data-app="settings" title="Settings">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12 3v2.2M12 18.8V21M21 12h-2.2M5.2 12H3M18.4 5.6l-1.5 1.5M7.1 16.9l-1.5 1.5M18.4 18.4l-1.5-1.5M7.1 7.1 5.6 5.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+
+  <!-- ============ WINDOWS ============ -->
+
+  <!-- NOTES -->
+  <div class="window" id="win-notes" data-title="Notes">
+    <div class="header">
+      <p class="wtitle">Notes</p>
+      <div class="wbtns">
+        <button class="wbtn min" data-act="min" title="Minimize"></button>
+        <button class="wbtn max" data-act="max" title="Maximize"></button>
+        <button class="wbtn close" data-act="close" title="Close"></button>
+      </div>
+    </div>
+    <div class="content">
+      <textarea id="notesArea" placeholder="Type a note — it saves automatically..."></textarea>
+    </div>
+    <div class="resizer"></div>
+  </div>
+
+  <!-- BROWSER -->
+  <div class="window" id="win-browser" data-title="Browser">
+    <div class="header">
+      <p class="wtitle">Browser</p>
+      <div class="wbtns">
+        <button class="wbtn min" data-act="min"></button>
+        <button class="wbtn max" data-act="max"></button>
+        <button class="wbtn close" data-act="close"></button>
+      </div>
+    </div>
+    <div class="content">
+      <div class="searchRow">
+        <input id="search" placeholder="Search the web...">
+        <button id="searchBtn">Go</button>
+      </div>
+      <p class="muted small">Opens results in a new tab.</p>
+    </div>
+    <div class="resizer"></div>
+  </div>
+
+  <!-- TERMINAL -->
+  <div class="window terminal" id="win-terminal" data-title="Terminal">
+    <div class="header">
+      <p class="wtitle">Terminal</p>
+      <div class="wbtns">
+        <button class="wbtn min" data-act="min"></button>
+        <button class="wbtn max" data-act="max"></button>
+        <button class="wbtn close" data-act="close"></button>
+      </div>
+    </div>
+    <div id="output"></div>
+    <input id="cmd" placeholder="type 'help'" autocomplete="off">
+    <div class="resizer"></div>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="window" id="win-calc" data-title="Calculator">
+    <div class="header">
+      <p class="wtitle">Calculator</p>
+      <div class="wbtns">
+        <button class="wbtn min" data-act="min"></button>
+        <button class="wbtn max" data-act="max"></button>
+        <button class="wbtn close" data-act="close"></button>
+      </div>
+    </div>
+    <div class="content">
+      <div class="searchRow">
+        <input id="calcInput" placeholder="e.g. (4+2)*3">
+        <button id="calcBtn">=</button>
+      </div>
+      <p id="calcResult" class="calcResult">0</p>
+    </div>
+    <div class="resizer"></div>
+  </div>
+
+  <!-- FILES -->
+  <div class="window" id="win-files" data-title="Files">
+    <div class="header">
+      <p class="wtitle">Files</p>
+      <div class="wbtns">
+        <button class="wbtn min" data-act="min"></button>
+        <button class="wbtn max" data-act="max"></button>
+        <button class="wbtn close" data-act="close"></button>
+      </div>
+    </div>
+    <div class="content">
+      <p class="sectionLabel">Images</p>
+      <div class="fileGrid">
+        <img src="https://picsum.photos/seed/goatos1/150" alt="">
+        <img src="https://picsum.photos/seed/goatos2/150" alt="">
+        <img src="https://picsum.photos/seed/goatos3/150" alt="">
+      </div>
+    </div>
+    <div class="resizer"></div>
+  </div>
+
+  <!-- CALENDAR (new) -->
+  <div class="window" id="win-calendar" data-title="Calendar">
+    <div class="header">
+      <p class="wtitle">Calendar</p>
+      <div class="wbtns">
+        <button class="wbtn min" data-act="min"></button>
+        <button class="wbtn max" data-act="max"></button>
+        <button class="wbtn close" data-act="close"></button>
+      </div>
+    </div>
+    <div class="content">
+      <div class="calNav">
+        <button id="calPrev" class="ghostBtn">&larr;</button>
+        <span id="calLabel">Month Year</span>
+        <button id="calNext" class="ghostBtn">&rarr;</button>
+      </div>
+      <div id="calGrid" class="calGrid"></div>
+    </div>
+    <div class="resizer"></div>
+  </div>
+
+  <!-- MUSIC (new) -->
+  <div class="window" id="win-music" data-title="Music">
+    <div class="header">
+      <p class="wtitle">Music</p>
+      <div class="wbtns">
+        <button class="wbtn min" data-act="min"></button>
+        <button class="wbtn max" data-act="max"></button>
+        <button class="wbtn close" data-act="close"></button>
+      </div>
+    </div>
+    <div class="content">
+      <div class="nowPlaying">
+        <div class="viz" id="viz"><span></span><span></span><span></span><span></span><span></span></div>
+        <p id="trackTitle">Select a track</p>
+        <p id="trackArtist" class="muted small"></p>
+      </div>
+      <div class="progressRow">
+        <span id="tElapsed">0:00</span>
+        <div class="progressTrack"><div id="progressFill" class="progressFill"></div></div>
+        <span id="tTotal">0:00</span>
+      </div>
+      <div class="transport">
+        <button id="prevBtn" class="ghostBtn">&#9664;&#9664;</button>
+        <button id="playBtn" class="ghostBtn accent">&#9654;</button>
+        <button id="nextBtn" class="ghostBtn">&#9654;&#9654;</button>
+      </div>
+      <ul id="playlist" class="playlist"></ul>
+    </div>
+    <div class="resizer"></div>
+  </div>
+
+  <!-- WEATHER -->
+  <div class="window" id="win-weather" data-title="Weather">
+    <div class="header">
+      <p class="wtitle">Weather</p>
+      <div class="wbtns">
+        <button class="wbtn min" data-act="min"></button>
+        <button class="wbtn max" data-act="max"></button>
+        <button class="wbtn close" data-act="close"></button>
+      </div>
+    </div>
+    <div class="content weatherContent">
+      <p class="weatherTemp">30&deg;</p>
+      <p class="muted">Kerala &middot; Sunny</p>
+    </div>
+    <div class="resizer"></div>
+  </div>
+
+  <!-- TIMER -->
+  <div class="window" id="win-timer" data-title="Stopwatch">
+    <div class="header">
+      <p class="wtitle">Stopwatch</p>
+      <div class="wbtns">
+        <button class="wbtn min" data-act="min"></button>
+        <button class="wbtn max" data-act="max"></button>
+        <button class="wbtn close" data-act="close"></button>
+      </div>
+    </div>
+    <div class="content">
+      <p id="timeDisplay" class="timeDisplay">0s</p>
+      <div class="transport">
+        <button id="startTimerBtn" class="ghostBtn accent">Start</button>
+        <button id="stopTimerBtn" class="ghostBtn">Stop</button>
+        <button id="resetTimerBtn" class="ghostBtn">Reset</button>
+      </div>
+    </div>
+    <div class="resizer"></div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div class="window" id="win-settings" data-title="Settings">
+    <div class="header">
+      <p class="wtitle">Settings</p>
+      <div class="wbtns">
+        <button class="wbtn min" data-act="min"></button>
+        <button class="wbtn max" data-act="max"></button>
+        <button class="wbtn close" data-act="close"></button>
+      </div>
+    </div>
+    <div class="content">
+      <p class="sectionLabel">Wallpaper</p>
+      <div class="wallRow">
+        <button class="wallSwatch" data-wall="1" style="background-image:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=200&q=60')"></button>
+        <button class="wallSwatch" data-wall="2" style="background-image:url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=200&q=60')"></button>
+        <button class="wallSwatch" data-wall="3" style="background-image:url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=200&q=60')"></button>
+      </div>
+      <p class="sectionLabel">Appearance</p>
+      <button id="themeSettingsBtn" class="ghostBtn">Toggle light / dark</button>
+      <p class="sectionLabel">About</p>
+      <button id="aboutBtn" class="ghostBtn">About GOAT OS</button>
+    </div>
+    <div class="resizer"></div>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
