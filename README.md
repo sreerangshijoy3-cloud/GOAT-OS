@@ -1,6 +1,6 @@
-# GOAT OS
+# GOAT OS 2.O
 
-GOAT OS is a web-based personal operating system built using HTML, CSS, and JavaScript. It simulates a desktop environment inside the browser, allowing users to interact with apps, windows, and system features similar to a real operating system.
+GOAT OS is a web-based personal operating system built using HTML, CSS, and JavaScript. It simulates a desktop environment inside the browser, allowing users to interact with apps, windows, and system features similar to a real operating system now it updated and added new featurs.
 
 ## Overview
 
